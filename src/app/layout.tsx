@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SideBar from "../components/SideBar";
-import TopBar from "../components/TopBar";
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
+import MainContainer from "@/components/MainContainer";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "AutoWorks",
@@ -12,17 +15,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={cn("font-sans", inter.variable)}>
       <body className="flex h-screen">
-        <SideBar />
-
-        {/* Contenedor principal de la derecha */}
-        <div className="bg-aw-background flex flex-1 flex-col overflow-hidden">
-          <TopBar />
-
-          {/* Acá se inyecta tu page.tsx (La tabla de clientes) */}
-          <main className="flex-1 overflow-y-auto p-6">{children}</main>
-        </div>
+        <MainContainer>{children}</MainContainer>
       </body>
     </html>
   );
