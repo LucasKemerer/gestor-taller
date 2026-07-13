@@ -1,12 +1,18 @@
+import { cn } from "@/lib/utils";
+
+// Con esta interfaz se heredan todas las propiedades de un boton html comun
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "outlined" | "danger";
+  className?: string;
+  children: React.ReactNode;
+}
+
 export default function Button({
   children,
-  variant,
+  variant = "secondary",
   className,
-}: {
-  children: React.ReactNode;
-  variant: "primary" | "secondary" | "outlined" | "danger";
-  className?: string;
-}) {
+  ...props // aca van empaquetadas todas las props de un boton comun
+}: ButtonProps) {
   let properties;
   switch (variant) {
     case "primary":
@@ -26,6 +32,11 @@ export default function Button({
         "font-semibold bg-aw-tertiary text-white outline-aw-tertiary outline-offset-2 hover:outline-2";
       break;
   }
-  properties = properties + " " + "py-3 px-4 rounded-lg text-md shadow-sm";
-  return <button className={properties + " " + className}>{children}</button>;
+  const clasesBase =
+    "px-3 py-2 flex gap-2 items-center justify-center rounded-lg text-md shadow-sm";
+  return (
+    <button {...props} className={cn(clasesBase, properties, className)}>
+      {children}
+    </button>
+  );
 }

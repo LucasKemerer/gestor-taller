@@ -11,13 +11,13 @@ export default function FilterBar({ placeholder = "Buscar..." }) {
           placeholder={placeholder}
         />
       </div>
-      <Button variant="secondary">
+      <Button className="px-4 py-3" variant="secondary">
         <div className="flex items-center gap-2">
           <Funnel className="h-4 w-4" />
           <p>Filtrar</p>
         </div>
       </Button>
-      <Button variant="secondary">
+      <Button className="px-4 py-3" variant="secondary">
         <div className="flex items-center gap-2">
           <ArrowDownUp className="h-4 w-4" />
           <p>Ordenar</p>
