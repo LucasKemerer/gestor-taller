@@ -1,4 +1,3 @@
-// Exportamos la interface para que la puedas importar en tu page.tsx de vehículos
 export interface Vehicle {
   id: number;
   plate: string;
@@ -6,11 +5,9 @@ export interface Vehicle {
   year: number;
   color: string;
   clientName: string;
-  status: string;
-  // Usamos estos tipos literales para que sea fácil darle color a las píldoras en la vista
-  statusType: "neutral" | "info" | "danger" | "success";
-  deliveryDate: string;
-  deliveryState: "normal" | "atrasado" | "entregado";
+  clientInitials: string; // Útil para el avatar de la tabla
+  customerId: number;
+  status: "en taller" | "entregado" | "sin historial";
 }
 
 export const mockVehicles: Vehicle[] = [
@@ -21,10 +18,9 @@ export const mockVehicles: Vehicle[] = [
     year: 2022,
     color: "Gris Plata",
     clientName: "Martín Rodríguez",
-    status: "Chapa (Desarme)",
-    statusType: "neutral",
-    deliveryDate: "15 Nov 2023",
-    deliveryState: "normal",
+    clientInitials: "MR",
+    customerId: 1,
+    status: "sin historial",
   },
   {
     id: 2,
@@ -33,10 +29,9 @@ export const mockVehicles: Vehicle[] = [
     year: 2020,
     color: "Blanco",
     clientName: "Empresa Gamma S.A.",
-    status: "Pintura (Cabina)",
-    statusType: "info",
-    deliveryDate: "12 Nov 2023",
-    deliveryState: "normal",
+    clientInitials: "EG",
+    customerId: 1,
+    status: "en taller",
   },
   {
     id: 3,
@@ -44,11 +39,10 @@ export const mockVehicles: Vehicle[] = [
     model: "Volkswagen Amarok",
     year: 2023,
     color: "Negro Profundo",
-    clientName: "Laura Pérez", // En tu diseño se ve gris clarito
-    status: "Detailing (Pulido)",
-    statusType: "danger",
-    deliveryDate: "10 Nov 2023",
-    deliveryState: "atrasado",
+    clientName: "Laura Pérez",
+    clientInitials: "LP",
+    customerId: 1,
+    status: "entregado",
   },
   {
     id: 4,
@@ -57,9 +51,8 @@ export const mockVehicles: Vehicle[] = [
     year: 2019,
     color: "Rojo Rubí",
     clientName: "Carlos Gómez",
-    status: "Finalizado (Listo)",
-    statusType: "success",
-    deliveryDate: "Entregado",
-    deliveryState: "entregado",
+    clientInitials: "CG",
+    customerId: 1,
+    status: "entregado",
   },
 ];
