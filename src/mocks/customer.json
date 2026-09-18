@@ -1,0 +1,75 @@
+[
+  {
+    "id": "cli_001",
+    "nombre": "Carlos Méndez",
+    "tipo": "particular",
+    "telefono": "11 4820-9931",
+    "cantidadVehiculos": 2,
+    "resumenActividad": {
+      "estado": "en_proceso",
+      "estadoLabel": "En proceso",
+      "vehiculoPatente": "AB 342 CD",
+      "vehiculoModelo": "Toyota Hilux SRV",
+      "descripcion": "OT #1084 · Chapa lateral y pintura completa"
+    }
+  },
+  {
+    "id": "cli_002",
+    "nombre": "Transportes Sur SRL",
+    "tipo": "empresa",
+    "contactoNombre": "Roberto",
+    "contactoRol": "Jefe de flota",
+    "telefono": "11 5590-1147",
+    "cantidadVehiculos": 8,
+    "resumenActividad": {
+      "estado": "en_proceso",
+      "estadoLabel": "1 en taller",
+      "vehiculoPatente": "AF 180 KL",
+      "vehiculoModelo": "Ford Ranger XLS",
+      "descripcion": "8 vehículos registrados en la flota"
+    }
+  },
+  {
+    "id": "cli_003",
+    "nombre": "Mariana Costa",
+    "tipo": "particular",
+    "telefono": "11 3102-4477",
+    "cantidadVehiculos": 1,
+    "resumenActividad": {
+      "estado": "cobro_pendiente",
+      "estadoLabel": "Cobro Pendiente",
+      "vehiculoPatente": "AD 912 OP",
+      "vehiculoModelo": "Volkswagen Golf GTI",
+      "descripcion": "Trabajo terminado: pulido y tratamiento cerámico",
+      "saldoPendiente": 185000
+    }
+  },
+  {
+    "id": "cli_004",
+    "nombre": "Esteban Rossi",
+    "tipo": "particular",
+    "telefono": "11 6720-3391",
+    "cantidadVehiculos": 1,
+    "resumenActividad": {
+      "estado": "turno_programado",
+      "estadoLabel": "Hoy 15:00 hs",
+      "vehiculoPatente": "AC 789 ZX",
+      "vehiculoModelo": "Peugeot 208 Allure",
+      "descripcion": "Inspección de paragolpe delantero y presupuesto"
+    }
+  },
+  {
+    "id": "cli_005",
+    "nombre": "Alejandro Gómez",
+    "tipo": "particular",
+    "telefono": "11 9012-3345",
+    "cantidadVehiculos": 3,
+    "resumenActividad": {
+      "estado": "sin_actividad",
+      "estadoLabel": "Sin órdenes",
+      "vehiculoPatente": null,
+      "vehiculoModelo": null,
+      "descripcion": "3 vehículos en su historial · Último servicio hace 3 meses"
+    }
+  }
+]

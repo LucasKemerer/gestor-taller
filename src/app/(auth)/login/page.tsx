@@ -1,4 +1,7 @@
 "use client";
+
+import { redirect } from "next/navigation";
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -47,6 +50,7 @@ export default function LoginPage() {
   function onSubmit(values: LoginValues) {
     // TODO: acá va la llamada real al backend
     console.log(values);
+    redirect("/customers");
   }
 
   return (
