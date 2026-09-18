@@ -1,0 +1,50 @@
+[
+  {
+    "id": "veh_101",
+    "patente": "AB 342 CD",
+    "modelo": "Toyota Hilux SRV",
+    "clienteId": "cli_001"
+  },
+  {
+    "id": "veh_102",
+    "patente": "AC 108 EF",
+    "modelo": "Toyota Corolla XEI",
+    "clienteId": "cli_001"
+  },
+  {
+    "id": "veh_205",
+    "patente": "AF 180 KL",
+    "modelo": "Ford Ranger XLS",
+    "clienteId": "cli_002"
+  },
+  {
+    "id": "veh_150",
+    "patente": "AD 912 OP",
+    "modelo": "Volkswagen Golf GTI",
+    "clienteId": "cli_003"
+  },
+  {
+    "id": "veh_300",
+    "patente": "AC 789 ZX",
+    "modelo": "Peugeot 208 Allure",
+    "clienteId": "cli_004"
+  },
+  {
+    "id": "veh_401",
+    "patente": "AE 220 QW",
+    "modelo": "Renault Duster",
+    "clienteId": "cli_005"
+  },
+  {
+    "id": "veh_402",
+    "patente": "AE 551 RT",
+    "modelo": "Ford Ka",
+    "clienteId": "cli_005"
+  },
+  {
+    "id": "veh_403",
+    "patente": "AE 990 YU",
+    "modelo": "Chevrolet Cruze",
+    "clienteId": "cli_005"
+  }
+]
