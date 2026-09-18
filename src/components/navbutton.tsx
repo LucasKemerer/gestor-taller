@@ -11,7 +11,6 @@ function NavButton({
 }) {
   const pathname = usePathname();
   const isActive = pathname === href;
-  console.log(isActive, pathname, href);
   return (
     <Link
       href={href}
