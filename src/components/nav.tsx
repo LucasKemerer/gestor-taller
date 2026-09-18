@@ -9,7 +9,7 @@ import { NavButton } from "@/components/navbutton";
 function Nav() {
   return (
     <nav className="fixed flex bottom-0 left-0 z-50 bg-foreground w-full justify-center gap-2 items-center h-16 text-muted-foreground">
-      <NavButton href="/">
+      <NavButton href="/dashboard">
         <House />
         Inicio
       </NavButton>

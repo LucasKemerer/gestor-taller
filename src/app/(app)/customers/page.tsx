@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ClientCardSkeleton } from "@/components/customer-card-skeleton";
 import {
   User,
+  Users,
   Search,
   ScanLine,
   LayoutGrid,
@@ -84,7 +85,10 @@ export default function CustomersPage() {
           <p className="tracking-wider pb-1 text-muted-foreground text-sm uppercase font-semibold">
             Directorio activo
           </p>
-          <h1 className="font-bold text-3xl">Clientes</h1>
+          <h1 className="font-bold flex gap-2 items-center text-3xl">
+            Clientes
+            <Users className="stroke-3" />
+          </h1>
         </div>
         <Badge variant="outline" className="items-center">
           <User className="text-tertiary" />
@@ -97,7 +101,7 @@ export default function CustomersPage() {
           placeholder="Buscar por nombre, patente, teléfono..."
           className="border-slate-300 bg-card shadow-sm p-6 pl-10"
         />
-        <button className="w-8 h-8 flex justify-center items-center absolute right-3 top-1/2 -translate-y-1/2 rounded-full">
+        <button className="lg:hidden flex absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8  justify-center items-center rounded-full">
           <ScanLine className="w-6 h-6 text-slate-600" />
         </button>
       </div>
