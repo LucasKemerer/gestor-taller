@@ -1,24 +1,37 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsTrigger, TabsContent, TabsList } from "@/components/ui/tabs";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ClientCardSkeleton } from "@/components/customer-card-skeleton";
 import {
   User,
   Search,
   ScanLine,
   LayoutGrid,
-  ClipboardList,
+  CreditCard,
   Wrench,
+  UserRoundPlus,
+  Clock,
 } from "lucide-react";
 
 import { FilterTabs, FilterOption } from "@/components/filtertabs";
 import { useState, useEffect } from "react";
 
+import customerData from "@/mocks/customer.json";
+import { CustomerCard } from "@/components/customer-card";
+import type { ClienteResumen } from "@/types/customer";
+
 export default function CustomersPage() {
+  // BLOQUE TEMPORAL PARA VER EL SKELETON
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
+  ////////////////////////
+
+  // FILTROS //////////////////
   const [activeFilter, setActiveFilter] = useState("todos");
 
   // cuando cambian los filtros se llama al backend
@@ -50,10 +63,19 @@ export default function CustomersPage() {
       label: "Saldo pendiente",
       count: 5,
       icon: (
-        <ClipboardList className="h-4 w-4 text-muted-foreground group-aria-pressed:text-white" />
+        <CreditCard className="h-4 w-4 text-muted-foreground group-aria-pressed:text-white" />
+      ),
+    },
+    {
+      value: "turno",
+      label: "Turno pendiente",
+      count: 1,
+      icon: (
+        <Clock className="h-4 w-4 text-muted-foreground group-aria-pressed:text-white" />
       ),
     },
   ];
+  // FIN DE LOS FILTROS //////////////////////////////////
 
   return (
     <div className="p-4">
@@ -79,13 +101,25 @@ export default function CustomersPage() {
           <ScanLine className="w-6 h-6 text-slate-600" />
         </button>
       </div>
-      <div className="mt-4">
+      <div className="mt-6 mb-4">
         <FilterTabs
           options={configFilters}
           activeFilter={activeFilter}
           onFilterChange={setActiveFilter}
         />
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {isLoading
+          ? Array.from({ length: 12 }).map((_, i) => (
+              <ClientCardSkeleton key={i} />
+            ))
+          : (customerData as ClienteResumen[]).map((cliente) => (
+              <CustomerCard key={cliente.id} cliente={cliente} />
+            ))}
+      </div>
+      <Button className="font-semibold fixed bottom-20 right-4 z-50 py-6 px-4 rounded-full bg-primary hover:bg-primary-strong hover:shadow-primary-strong/40 shadow-md shadow-primary/40 transition-transform active:scale-95">
+        <UserRoundPlus className="stroke-3" /> Nuevo Cliente
+      </Button>
     </div>
   );
 }

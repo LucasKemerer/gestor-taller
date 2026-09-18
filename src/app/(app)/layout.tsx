@@ -9,7 +9,7 @@ export default function AppLayout({
   return (
     <>
       <Header />
-      <main className="flex-1 pb-16">{children}</main>
+      <main className="overflow-x-hidden min-h-screen pb-16">{children}</main>
       <Nav />
     </>
   );

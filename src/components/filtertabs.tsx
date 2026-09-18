@@ -22,7 +22,7 @@ function FilterTabs({
     <div
       role="group"
       aria-label="Filtrar clientes"
-      className="flex w-screen gap-3 overflow-x-auto py-1 scrollbar-none"
+      className="flex w-screen gap-3 overflow-x-auto pr-12 scrollbar-none"
     >
       {options.map((opt) => {
         const isActive = opt.value === activeFilter;

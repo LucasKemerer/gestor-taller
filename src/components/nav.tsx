@@ -8,7 +8,7 @@ import {
 import { NavButton } from "@/components/navbutton";
 function Nav() {
   return (
-    <nav className="fixed flex bottom-0 left-0 z-50 bg-foreground w-full justify-center gap-8 items-center h-16 text-muted-foreground">
+    <nav className="fixed flex bottom-0 left-0 z-50 bg-foreground w-full justify-center gap-2 items-center h-16 text-muted-foreground">
       <NavButton href="/">
         <House />
         Inicio
