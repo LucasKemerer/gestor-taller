@@ -20,7 +20,7 @@ export function ClientCardSkeleton() {
       <div className="flex items-center justify-between gap-2 rounded-xl border border-border bg-muted/40 p-3">
         <div className="flex w-full flex-col gap-2">
           <Skeleton className="h-4 w-40" />
-          <Skeleton className="h-3 w-56" />
+          <Skeleton className="h-4 w-56" />
         </div>
         <Skeleton className="h-5 w-5 shrink-0 rounded" />
       </div>
