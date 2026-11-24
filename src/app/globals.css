@@ -12,6 +12,8 @@
   --color-tertiary-strong: #006673;
   --color-warning: #8a4f00;
   --color-warning-bg: #ffe9c7;
+  --color-success-bg: #d1f5e3;
+  --color-success-text: #1a7339;
   --color-danger-bg: #fce3dc;
   --color-danger-text: #8c2213;
 
@@ -56,6 +58,8 @@
   --color-tertiary-strong: var(--color-tertiary-strong);
   --color-warning: var(--color-warning);
   --color-warning-bg: var(--color-warning-bg);
+  --color-success-bg: var(--color-success-bg);
+  --color-success-text: var(--color-success-text);
   --color-danger-bg: var(--color-danger-bg);
   --color-danger-text: var(--color-danger-text);
 

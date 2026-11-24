@@ -1,29 +1,37 @@
-// Esta forma coincide con lo que devuelve GET /clientes (lista paginada).
-// El backend arma "resumenActividad" agregando OrdenTrabajo + EstadoOT +
-// Vehiculo (vía PropiedadVehiculo, para el dueño actual) — el frontend
-// nunca hace ese join, solo consume el DTO ya resuelto.
-export interface ClienteResumen {
-  id: string; // Cliente.id
-  nombre: string; // Cliente.nombre (o razón social si tipo === "empresa")
-  tipo: "particular" | "empresa"; // Cliente.tipo
-  telefono: string; // Cliente.telefono
-  contactoNombre?: string; // Cliente.contactoNombre — solo aplica si tipo === "empresa"
-  contactoRol?: string; // Cliente.contactoRol — ej. "Jefe de flota"
-  cantidadVehiculos: number; // COUNT de PropiedadVehiculo vigente para este cliente
+// El backend arma resumenActividad; el frontend nunca hace esos joins.
 
-  // Siempre la última OrdenTrabajo relevante (la activa si existe,
-  // si no la más reciente). Mismo shape en los 5 escenarios posibles.
+export interface ClienteResumen {
+  id: number; 
+  nombre: string; 
+  apellido: string; 
+  telefono: string; 
+  telegramVinculado: boolean; // Cliente.telegram_chat_id !== null (el id crudo no viaja al front)
+  // COUNT(DISTINCT OrdenTrabajo.vehiculo_id) WHERE OrdenTrabajo.cliente_id = Cliente.id
+  // (el vehículo no tiene dueño: se vincula al cliente solo a través de sus OTs)
+  cantidadVehiculos: number;
+
+  // Misma forma para las 3 situaciones posibles.
   resumenActividad: {
-    estado:
-      | "en_proceso"
-      | "cobro_pendiente"
-      | "turno_programado"
-      | "completado"
-      | "sin_actividad";
-    estadoLabel: string; // texto ya resuelto por el backend (ej. "1 en taller", "Hoy 15:00 hs")
-    vehiculoPatente: string | null; // Vehiculo.patente del vehículo destacado
-    vehiculoModelo: string | null; // Vehiculo.modelo
-    descripcion: string; // OrdenTrabajo.descripcion, o resumen si no hay OT activa
-    saldoPendiente?: number; // suma de Presupuesto/Factura impagos de este cliente
+
+    situacion: "ot_en_curso" | "turno_programado" | "sin_actividad";
+    // ot_en_curso: TipoEstado.nombre del HistorialEstadoOT vigente (fecha_fin IS NULL)
+    // turno_programado: texto armado desde Turno.inicio_programado (ej. "Hoy 15:00 hs")
+    // sin_actividad: ej. "Sin órdenes"
+
+    estadoLabel: string;
+    // TipoEstado.es_espera del estado vigente (Presupuestada, Espera de repuestos…).
+    // false en las otras dos situaciones.
+
+    enEspera: boolean;
+    ordenTrabajoId: number | null; // OrdenTrabajo.id (OT en curso o la última)
+    vehiculoPatente: string | null; // Vehiculo.patente. SIEMPRE null en turno_programado
+    vehiculoModelo: string | null; // Vehiculo.modelo. SIEMPRE null en turno_programado
+
+    // Vehiculo.tipo_vehiculo de la OT, o Turno.tipo_vehiculo si es un turno
+    tipoVehiculo: string | null;
+    
+    // No existe como columna: el backend concatena los Servicio.nombre de
+    // DetalleServicioOT (o de DetalleServicioTurno, por `orden`, si es un turno)
+    descripcion: string;
   };
 }

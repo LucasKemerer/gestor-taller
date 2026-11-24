@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/form";
 
 const loginSchema = z.object({
-  user: z.string().min(1, "Tenés que ingresar un usuario"),
+  email: z.string().min(1, "Tenés que ingresar un usuario"),
   pass: z.string().min(1, "Tenés ingresar una contraseña"),
 });
 
@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { user: "", pass: "" },
+    defaultValues: { email: "", pass: "" },
   });
 
   function onSubmit(values: LoginValues) {
@@ -74,18 +74,18 @@ export default function LoginPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="user"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Usuario / Legajo
+                    Correo electrónico
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-tertiary" />
                       <Input
                         className="border-slate-400 shadow-sm p-6 pl-10"
-                        placeholder="Ej. MEC-0438"
+                        placeholder="Ej. usuario@gmail.com"
                         {...field}
                       />
                     </div>

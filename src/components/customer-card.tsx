@@ -8,7 +8,6 @@ import {
   Phone,
   MessageSquare,
   ChevronRight,
-  CreditCard,
   Car,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,25 +15,22 @@ import type { ClienteResumen } from "@/types/customer";
 
 interface ClientCardProps {
   cliente: ClienteResumen;
-  onVerFicha?: (id: string) => void;
+  onVerFicha?: (id: number) => void;
   onCobrar?: (id: string) => void;
 }
 
-// Un solo lugar que decide el color según el estado — si mañana se agrega
-// un sexto estado, se toca acá y no en cada lugar donde se pinta un badge.
-function getEstadoBadgeClasses(
-  estado: ClienteResumen["resumenActividad"]["estado"],
-) {
-  switch (estado) {
-    case "en_proceso":
-      return "bg-warning-bg text-warning";
-    case "cobro_pendiente":
-      return "bg-danger-bg text-danger-text";
+// Un solo lugar que decide el color según el estado 
+function getEstadoBadgeClasses(resumen: ClienteResumen["resumenActividad"]) {
+  switch (resumen.situacion) {
+    case "ot_en_curso":
+      if (resumen.enEspera) {
+        return "bg-warning-bg text-warning";
+      } else {
+        return "bg-tertiary/10 text-tertiary-strong";
+      }
     case "turno_programado":
-    case "completado":
-      return "bg-tertiary/10 text-tertiary-strong";
+      return "bg-success-bg text-success-text";
     case "sin_actividad":
-    default:
       return "bg-muted text-muted-foreground";
   }
 }
@@ -42,53 +38,30 @@ function getEstadoBadgeClasses(
 // Esto es puramente copy de UI (qué dice el botón), no dato de negocio —
 // por eso se resuelve acá y no viaja como campo del backend.
 function getEtiquetaAccion(cliente: ClienteResumen) {
-  if (cliente.resumenActividad.estado === "sin_actividad") return "Historial";
-  if (cliente.tipo === "empresa") return "Flota";
+  if (cliente.resumenActividad.situacion === "sin_actividad") return "Historial";
   return "Ficha";
 }
 
 export function CustomerCard({
   cliente,
   onVerFicha,
-  onCobrar,
 }: ClientCardProps) {
   const { resumenActividad: resumen } = cliente;
-  const iniciales = cliente.nombre
-    .split(" ")
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
-    .toUpperCase();
+  const iniciales =  `${cliente.nombre[0]}${cliente.apellido[0]}`.toUpperCase();
 
   return (
     <Card className="gap-3 p-4 m-2">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-3">
           <Avatar>
-            <AvatarFallback className="bg-warning-bg font-semibold text-warning">
+            <AvatarFallback className="bg-muted font-semibold text-muted-foreground">
               {iniciales}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold">{cliente.nombre}</span>
-              <Badge
-                variant="outline"
-                className="text-[0.65rem] uppercase text-muted-foreground"
-              >
-                {cliente.tipo === "empresa" ? "Flota" : "Particular"}
-              </Badge>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {cliente.tipo === "empresa"
-                ? `${cliente.contactoNombre} (${cliente.contactoRol})`
-                : `${cliente.cantidadVehiculos} vehículo${cliente.cantidadVehiculos !== 1 ? "s" : ""} registrado${cliente.cantidadVehiculos !== 1 ? "s" : ""}`}
-            </p>
-          </div>
         </div>
 
         <Badge
-          className={cn("shrink-0", getEstadoBadgeClasses(resumen.estado))}
+          className={cn("shrink-0", getEstadoBadgeClasses(resumen))}
         >
           {resumen.estadoLabel}
         </Badge>
@@ -115,11 +88,6 @@ export function CustomerCard({
           <p className="truncate text-sm text-muted-foreground">
             {resumen.descripcion}
           </p>
-          {resumen.saldoPendiente !== undefined && (
-            <p className="text-sm font-semibold text-danger-text">
-              ${resumen.saldoPendiente.toLocaleString("es-AR")} saldo pendiente
-            </p>
-          )}
         </div>
         <Car className="h-5 w-5 shrink-0 text-muted-foreground" />
       </div>
@@ -131,25 +99,15 @@ export function CustomerCard({
         <Button variant="outline" size="icon" className="shrink-0">
           <MessageSquare className="h-4 w-4" />
         </Button>
-
-        {resumen.estado === "cobro_pendiente" ? (
-          <Button
-            className="flex-1 bg-primary hover:bg-primary-strong"
-            onClick={() => onCobrar?.(cliente.id)}
-          >
-            <CreditCard className="h-4 w-4" />
-            Cobrar
-          </Button>
-        ) : (
-          <Button
-            variant="outline"
-            className="flex-1 justify-between"
-            onClick={() => onVerFicha?.(cliente.id)}
-          >
-            {getEtiquetaAccion(cliente)}
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        )}
+        <Button
+          variant="outline"
+          className="flex-1 justify-between"
+          onClick={() => onVerFicha?.(cliente.id)}
+        >
+          {getEtiquetaAccion(cliente)}
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+   
       </div>
     </Card>
   );

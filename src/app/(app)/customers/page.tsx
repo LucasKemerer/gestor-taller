@@ -9,7 +9,6 @@ import {
   Search,
   ScanLine,
   LayoutGrid,
-  CreditCard,
   Wrench,
   UserRoundPlus,
   Clock,
@@ -57,14 +56,6 @@ export default function CustomersPage() {
       count: 14,
       icon: (
         <Wrench className="h-4 w-4 text-muted-foreground group-aria-pressed:text-white" />
-      ),
-    },
-    {
-      value: "saldo",
-      label: "Saldo pendiente",
-      count: 5,
-      icon: (
-        <CreditCard className="h-4 w-4 text-muted-foreground group-aria-pressed:text-white" />
       ),
     },
     {
