@@ -58,6 +58,7 @@ export function CustomerCard({
               {iniciales}
             </AvatarFallback>
           </Avatar>
+          <p className="font-bold line-clamp-1">{cliente.nombre} {cliente.apellido}</p>
         </div>
 
         <Badge

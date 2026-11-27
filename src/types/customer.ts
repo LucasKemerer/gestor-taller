@@ -1,3 +1,26 @@
+// ---------- Alta de cliente ----------
+
+// POST /clientes: body
+export interface ClienteCreateInput {
+  nombre: string; 
+  apellido: string; 
+  telefono: string;
+}
+
+// POST /clientes: respuesta 201
+export interface ClienteCreado {
+  id: number; 
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  telegramVinculado: boolean; // Cliente.telegram_chat_id !== null
+  activo: boolean; 
+}
+// Error esperado: 409 si ya hay un Cliente activo con ese teléfono
+
+
+
+
 // El backend arma resumenActividad; el frontend nunca hace esos joins.
 
 export interface ClienteResumen {
@@ -33,5 +56,22 @@ export interface ClienteResumen {
     // No existe como columna: el backend concatena los Servicio.nombre de
     // DetalleServicioOT (o de DetalleServicioTurno, por `orden`, si es un turno)
     descripcion: string;
+  };
+}
+
+
+// GET /clientes?filtro=todos|taller|turno&q=texto
+export interface ListadoClientesResponse {
+  items: ClienteResumen[];
+  // Siempre sobre el total, sin importar el filtro activo ni la búsqueda: son los
+  // números de las pestañas, y no deberían cambiar al tipear en el buscador
+  conteos: {
+    // COUNT(Cliente) WHERE activo = true. También es el "N registros" del encabezado
+    todos: number;
+    // Clientes con al menos una OrdenTrabajo con fecha_egreso IS NULL (OT en curso)
+    taller: number;
+    // Clientes con un Turno en estado pendiente o confirmado, con inicio_programado futuro
+    // y que todavía no originó OT
+    turno: number;
   };
 }
